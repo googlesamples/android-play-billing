@@ -1,0 +1,16 @@
+# GOOGLE SAMPLE PACKAGING DATA
+#
+# This file is used by Google as part of our samples packaging process.
+# End users may safely ignore this file. It has no relevance to other systems.
+---
+status:       PUBLISHED
+technologies: [Android, "Google Play Services", "Google Play In-app Billing"]
+categories:   [Getting Started]
+languages:    [Java]
+solutions:    [Mobile, Monetization]
+github:       googlesamples/android/play/billing
+level:        INTERMEDIATE
+icon:         playstore/screenshot1.png
+apiRefs:
+    - android:com.android.vending.billing.IInAppBillingService
+license: apache2
