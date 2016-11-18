@@ -25,8 +25,8 @@ import java.util.Map;
  * An Inventory is returned by such methods as {@link IabHelper#queryInventory}.
  */
 public class Inventory {
-    Map<String,SkuDetails> mSkuMap = new HashMap<String,SkuDetails>();
-    Map<String,Purchase> mPurchaseMap = new HashMap<String,Purchase>();
+    private Map<String,SkuDetails> mSkuMap = new HashMap<>();
+    private Map<String,Purchase> mPurchaseMap = new HashMap<>();
 
     Inventory() { }
 
