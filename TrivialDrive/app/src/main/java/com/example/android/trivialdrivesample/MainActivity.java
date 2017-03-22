@@ -441,7 +441,9 @@ public class MainActivity extends Activity implements IabBroadcastListener,
             Log.e(TAG, "Unknown button clicked in subscription dialog: " + id);
         }
     }
-
+    
+    // Called by the system when the user returns to the activity from the purchase screen 
+    // (e.g., user clicked the back button or completed the purchase).
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
