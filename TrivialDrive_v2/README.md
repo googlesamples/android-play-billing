@@ -21,11 +21,13 @@ subscription can either be purchased monthly or yearly.
 
 ## Pre-requisites
 
-- [Documentation](https://developer.android.com/google/play/billing/billing_overview.html)
+- [Play Billing Documentation](https://developer.android.com/google/play/billing/index.html)
+- [Play Billing Library Documentation](https://developer.android.com/google/play/billing/billing_library.html)
 
 ## Screenshots
 
-![Screenshot1](playstore/screenshot1.png)
+![Screenshot1](playstore/android_mobile_1.png)
+![Screenshot2](playstore/android_mobile_2.png)
 
 ## Getting Started
 
@@ -138,4 +140,4 @@ the License.
 
 ## CHANGELOG
 
-   2017-04-11: Initial release
+   2017-06-08: Initial release
