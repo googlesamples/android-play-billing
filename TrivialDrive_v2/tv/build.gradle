@@ -20,6 +20,6 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:leanback-v17:$project.TOOLS_VERSION"
+    compile "com.android.support:leanback-v17:$project.SUPPORT_LIB_VERSION"
     compile project(path: ':shared-module')
 }

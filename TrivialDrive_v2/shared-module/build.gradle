@@ -18,16 +18,16 @@ android {
 
 dependencies {
 
-    compile "com.android.support:appcompat-v7:$project.TOOLS_VERSION"
-    compile "com.android.support:cardview-v7:$project.TOOLS_VERSION"
-    compile "com.android.support:recyclerview-v7:$project.TOOLS_VERSION"
-    compile "com.android.support:support-annotations:$project.TOOLS_VERSION"
+    compile "com.android.support:appcompat-v7:$project.SUPPORT_LIB_VERSION"
+    compile "com.android.support:cardview-v7:$project.SUPPORT_LIB_VERSION"
+    compile "com.android.support:recyclerview-v7:$project.SUPPORT_LIB_VERSION"
+    compile "com.android.support:support-annotations:$project.SUPPORT_LIB_VERSION"
 
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile 'org.robolectric:robolectric:2.4'
+    testCompile 'org.mockito:mockito-core:2.8.9'
+    testCompile 'org.robolectric:robolectric:3.3.2'
 
     compile 'com.android.billingclient:billing:dp-1'
 }
