@@ -116,7 +116,8 @@ public class MainActivity extends Activity implements IabBroadcastListener,
 
     // SKUs for our products: the premium upgrade (non-consumable) and gas (consumable)
     static final String SKU_PREMIUM = "premium";
-    static final String SKU_GAS = "gas";
+//    static final String SKU_GAS = "gas";
+    static final String SKU_GAS = "android.test.canceled"; // Generates incorrect error code, see IABHELPER_UNKNOWN_ERROR but expecting IABHELPER_USER_CANCELLED. Looking at you, IabHelper.java.
 
     // SKU for our subscription (infinite gas)
     static final String SKU_INFINITE_GAS_MONTHLY = "infinite_gas_monthly";
