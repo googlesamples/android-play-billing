@@ -58,7 +58,8 @@ IN THE CODE
     The storeFile location can be a relative or absolute filename.
     https://docs.gradle.org/current/userguide/working_with_files.html
 
-    Or, you can sign your APK from Android Studio "Build -> Generate Signed APK..."
+    Or, you can sign your APK from Android Studio "Build -> Generate Signed APK...".
+    Make sure to check "V1 (Jar Signature)".
 
 BACK TO THE GOOGLE PLAY DEVELOPER CONSOLE
 
