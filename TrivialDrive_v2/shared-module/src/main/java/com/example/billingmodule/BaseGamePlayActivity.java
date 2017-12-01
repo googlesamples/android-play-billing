@@ -182,6 +182,11 @@ public abstract class BaseGamePlayActivity extends FragmentActivity implements B
     }
 
     @Override
+    public boolean isCancelled() {
+        return mViewController.isCancelled();
+    }
+
+    @Override
     public boolean isTankFull() {
         return mViewController.isTankFull();
     }

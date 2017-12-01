@@ -39,7 +39,7 @@ public class GoldYearlyDelegate extends UiManagingDelegate {
     public void onBindViewHolder(SkuRowData data, RowViewHolder holder) {
         super.onBindViewHolder(data, holder);
         if (mBillingProvider.isGoldYearlySubscribed()) {
-            holder.button.setText(R.string.button_own);
+            holder.button.setText(R.string.button_unsubscribe);
         } else {
             int textId = mBillingProvider.isGoldMonthlySubscribed()
                     ? R.string.button_change : R.string.button_buy;

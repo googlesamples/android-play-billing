@@ -47,4 +47,9 @@ public abstract class UiManagingDelegate {
         Toast.makeText(mBillingProvider.getBillingManager().getContext(),
                 R.string.alert_already_purchased, Toast.LENGTH_SHORT).show();
     }
+
+    protected void showAlreadyCancelledToast() {
+        Toast.makeText(mBillingProvider.getBillingManager().getContext(),
+                R.string.alert_already_cancelled, Toast.LENGTH_SHORT).show();
+    }
 }

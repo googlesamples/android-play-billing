@@ -39,7 +39,11 @@ public class GoldMonthlyDelegate extends UiManagingDelegate {
     public void onBindViewHolder(SkuRowData data, RowViewHolder holder) {
         super.onBindViewHolder(data, holder);
         if (mBillingProvider.isGoldMonthlySubscribed()) {
-            holder.button.setText(R.string.button_own);
+            if (mBillingProvider.isCancelled()) {
+                holder.button.setText(R.string.button_cancelled);
+            } else {
+                holder.button.setText(R.string.button_unsubscribe);
+            }
         } else {
             int textId = mBillingProvider.isGoldYearlySubscribed()
                     ? R.string.button_change : R.string.button_buy;
@@ -50,7 +54,13 @@ public class GoldMonthlyDelegate extends UiManagingDelegate {
 
     @Override
     public void onButtonClicked(SkuRowData data) {
-        if (mBillingProvider.isGoldYearlySubscribed()) {
+        if (mBillingProvider.isGoldMonthlySubscribed()) {
+            if (mBillingProvider.isCancelled()) {
+                showAlreadyCancelledToast();
+            } else {
+                showAlreadyPurchasedToast();
+            }
+        } else if (mBillingProvider.isGoldYearlySubscribed()) {
             // If we already subscribed to yearly gas, launch replace flow
             ArrayList<String> currentSubscriptionSku = new ArrayList<>();
             currentSubscriptionSku.add(GoldYearlyDelegate.SKU_ID);

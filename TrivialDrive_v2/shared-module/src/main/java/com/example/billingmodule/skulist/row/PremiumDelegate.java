@@ -37,7 +37,7 @@ public class PremiumDelegate extends UiManagingDelegate {
     @Override
     public void onBindViewHolder(SkuRowData data, RowViewHolder holder) {
         super.onBindViewHolder(data, holder);
-        int textId = mBillingProvider.isPremiumPurchased() ? R.string.button_own
+        int textId = mBillingProvider.isPremiumPurchased() ? R.string.button_unsubscribe
                 : R.string.button_buy;
         holder.button.setText(textId);
         holder.skuIcon.setImageResource(R.drawable.premium_icon);

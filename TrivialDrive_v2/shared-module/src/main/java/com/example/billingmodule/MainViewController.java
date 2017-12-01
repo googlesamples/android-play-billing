@@ -49,6 +49,8 @@ public class MainViewController {
     // Tracks if we currently own subscriptions SKUs
     private boolean mGoldMonthly;
     private boolean mGoldYearly;
+    // Tracks if our subscription has been cancelled
+    private boolean mIsCanceled;
 
     // Tracks if we currently own a premium car
     private boolean mIsPremium;
@@ -86,6 +88,10 @@ public class MainViewController {
 
     public boolean isGoldMonthlySubscribed() {
         return mGoldMonthly;
+    }
+
+    public boolean isCancelled() {
+        return mIsCanceled;
     }
 
     public boolean isGoldYearlySubscribed() {
@@ -138,6 +144,7 @@ public class MainViewController {
             mGoldYearly = false;
 
             for (Purchase purchase : purchaseList) {
+                mIsCanceled = !purchase.isAutoRenewing();
                 switch (purchase.getSku()) {
                     case PremiumDelegate.SKU_ID:
                         Log.d(TAG, "You are Premium! Congratulations!!!");

@@ -69,7 +69,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      * (that you got from the Google Play developer console). This is not your
      * developer public key, it's the *app-specific* public key.
      *
-     * Instead of just storing the entire literal string here embedded in the
+     * todo Instead of just storing the entire literal string here embedded in the
      * program,  construct the key at runtime from pieces or
      * use bit manipulation (for example, XOR with some other string) to hide
      * the actual key.  The key itself is not secret information, but we don't
@@ -244,7 +244,7 @@ public class BillingManager implements PurchasesUpdatedListener {
     /**
      * Handles the purchase
      * <p>Note: Notice that for each purchase, we check if signature is valid on the client.
-     * It's recommended to move this check into your backend.
+     * todo It's recommended to move this check into your backend.
      * See {@link Security#verifyPurchase(String, String, String)}
      * </p>
      * @param purchase Purchase to be handled
@@ -373,7 +373,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      * </p>
      */
     private boolean verifyValidSignature(String signedData, String signature) {
-        // Some sanity checks to see if the developer (that's you!) really followed the
+        // todo Some sanity checks to see if the developer (that's you!) really followed the
         // instructions to run this sample (don't put these checks on your app!)
         if (BASE_64_ENCODED_PUBLIC_KEY.contains("CONSTRUCT_YOUR")) {
             throw new RuntimeException("Please update your app's public key at: "

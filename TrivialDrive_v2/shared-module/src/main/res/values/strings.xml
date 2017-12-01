@@ -23,7 +23,8 @@
     <string name="alert_drove">Vroooom, you drove a few miles.</string>
     <string name="alert_fill_gas">You filled &#188; tank. Your tank is now %1$d/4 full!</string>
     <string name="alert_error_consuming">Error while consuming: %1$s</string>
-    <string name="alert_already_purchased">Item is already purchased</string>
+    <string name="alert_already_purchased">To cancel subscription, please visit Google Play Store.</string>
+    <string name="alert_already_cancelled">Subscription is cancelled.</string>
 
     <string name="error_no_skus">We didn\'t find any SKUs to display&#8230; Check your internet
         connection and make sure your Google Developer Console was setup correctly.</string>
@@ -34,7 +35,8 @@
     <string name="button_drive">Drive</string>
     <string name="button_purchase">Purchase</string>
     <string name="button_buy">Buy</string>
-    <string name="button_own">Own</string>
+    <string name="button_unsubscribe">Unsubscribe</string>
+    <string name="button_cancelled">Cancelled</string>
     <string name="button_update">Update</string>
     <string name="button_change">Change</string>
     <string name="button_full_tank">Full tank</string>

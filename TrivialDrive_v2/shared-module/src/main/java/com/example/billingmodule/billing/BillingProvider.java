@@ -26,5 +26,6 @@ public interface BillingProvider {
     boolean isGoldMonthlySubscribed();
     boolean isTankFull();
     boolean isGoldYearlySubscribed();
+    boolean isCancelled();
 }
 
