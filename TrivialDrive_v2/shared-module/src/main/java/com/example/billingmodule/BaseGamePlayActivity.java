@@ -55,8 +55,9 @@ import com.example.billingmodule.skulist.AcquireFragment;
  * The user can also purchase a "premium upgrade" that gives them a red car
  * instead of the standard blue one (exciting!).
  *
- * The user can also purchase a subscription ("infinite gas") that allows them
- * to drive without using up any gas while that subscription is active.
+ * The user can also purchase a subscription ("gold status") that allows them to
+ * drive with a gold car background while that subscription is active. The
+ * subscription can either be purchased monthly or yearly.
  *
  * It's important to note the consumption mechanics for each item.
  *
@@ -65,7 +66,7 @@ import com.example.billingmodule.skulist.AcquireFragment;
  * display the red car instead of the blue one because it queries whether
  * the premium "item" is owned or not.
  *
- * INFINITE GAS: this is a subscription, and subscriptions can't be consumed.
+ * GOLD STATUS: this is a subscription, and subscriptions can't be consumed.
  *
  * GAS: when gas is purchased, the "gas" item is then owned. We consume it
  * when we apply that item's effects to our app's world, which to us means
