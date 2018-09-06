@@ -18,7 +18,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion Integer.valueOf(project.TARGET_SDK_VERSION)
-    buildToolsVersion project.TOOLS_VERSION
 
     defaultConfig {
         minSdkVersion Integer.valueOf(MINIMUM_SDK_VERSION)
@@ -40,9 +39,9 @@ dependencies {
     api "com.android.support:recyclerview-v7:$project.SUPPORT_VERSION"
     api "com.android.support:support-annotations:$project.SUPPORT_VERSION"
 
-    androidTestApi 'com.android.support.test:testing-support-lib:0.1'
-    androidTestApi 'com.android.support.test.espresso:espresso-core:3.0.1'
-    testApi 'junit:junit:4.12'
-    testApi 'org.mockito:mockito-core:1.10.19'
-    testApi 'org.robolectric:robolectric:2.4'
+    androidTestImplementation 'com.android.support.test:testing-support-lib:0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.21.0'
+    testImplementation 'org.robolectric:robolectric:3.8'
 }

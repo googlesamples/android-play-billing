@@ -26,7 +26,6 @@ android {
         }
     }
     compileSdkVersion Integer.valueOf(project.TARGET_SDK_VERSION)
-    buildToolsVersion project.TOOLS_VERSION
     defaultConfig {
         applicationId project.APP_ID
         minSdkVersion Integer.valueOf(project.MINIMUM_SDK_VERSION)
@@ -52,7 +51,7 @@ android {
 dependencies {
     implementation project(':shared-module')
 
-    compileOnly 'com.google.android.wearable:wearable:2.2.0'
-    implementation 'com.google.android.support:wearable:2.2.0'
-    implementation 'com.google.android.gms:play-services-wearable:11.8.0'
+    compileOnly 'com.google.android.wearable:wearable:2.3.0'
+    implementation 'com.google.android.support:wearable:2.3.0'
+    implementation 'com.google.android.gms:play-services-wearable:15.0.1'
 }

@@ -16,10 +16,6 @@
 
 apply plugin: 'com.android.instantapp'
 
-android {
-    buildToolsVersion project.TOOLS_VERSION
-}
-
 dependencies {
     implementation project(':base-feature')
 }

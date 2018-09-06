@@ -29,7 +29,6 @@ android {
     baseFeature = true
 
     compileSdkVersion Integer.valueOf(project.TARGET_SDK_VERSION)
-    buildToolsVersion project.TOOLS_VERSION
 
     defaultConfig {
         // Tests with Google Play Billing APIs must use production package name.
@@ -62,8 +61,8 @@ dependencies {
     application project(':mobile')
     wearApp project(':wear')
 
-    androidTestApi('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testApi 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }

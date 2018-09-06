@@ -26,7 +26,6 @@ android {
         }
     }
     compileSdkVersion Integer.valueOf(project.TARGET_SDK_VERSION)
-    buildToolsVersion project.TOOLS_VERSION
 
     defaultConfig {
         applicationId project.APP_ID
