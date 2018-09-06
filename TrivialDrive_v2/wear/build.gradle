@@ -48,6 +48,17 @@ android {
     }
 }
 
+configurations.all { configuration ->
+    resolutionStrategy {
+        force "com.android.support:percent:$SUPPORT_VERSION",
+                "com.android.support:cardview-v7:$SUPPORT_VERSION",
+                    "com.android.support:appcompat-v7:$SUPPORT_VERSION",
+                        "com.android.support:support-v4:$SUPPORT_VERSION",
+                        "com.android.support:support-media-compat:$SUPPORT_VERSION",
+                            "com.android.support:animated-vector-drawable:$SUPPORT_VERSION"
+    }
+}
+
 dependencies {
     implementation project(':shared-module')
 
