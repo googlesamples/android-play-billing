@@ -75,7 +75,7 @@ export class OneTimeProductPurchaseImpl implements OneTimeProductPurchase {
     apiResponse.developerPayload = null;
 
     const purchase = new OneTimeProductPurchaseImpl();
-    Object.assign(this, apiResponse);
+    Object.assign(purchase, apiResponse);
     purchase.purchaseToken = purchaseToken;
     purchase.sku = sku;
     purchase.verifiedAt = verifiedAt;
