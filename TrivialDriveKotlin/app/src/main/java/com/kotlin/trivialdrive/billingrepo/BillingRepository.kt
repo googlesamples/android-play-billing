@@ -168,15 +168,14 @@ import kotlin.math.pow
  *
  * FINAL THOUGHT
  *
- * While the architecture presented here and 95% of the code is highly reusable (that's the whole
- * point of a sample), this repository nonetheless will always be app-specific. For
- * Trivial Drive, for example, it will be tailored to sell three items: a premium car, gas
- * for driving, and "gold status." Consequently, this repo must handle logic that
- * deals with what it means for a user to own a premium car or buy gas. To say it differently:
- * For your own app, this repo shall know exactly everything the app is selling and how. And the
- * app should not be selling anything that's not listed in this repo. Therefore, the engineers
- * responsible for implementing the [BillingRepository] need to fully understand the app's business
- * model.
+ * While the architecture presented here and 95% of the code is highly reusable, this repository
+ * nonetheless will always be app-specific. For Trivial Drive, for example, it will be tailored to
+ * sell three items: a premium car, gas for driving, and "gold status." Consequently, this repo
+ * must handle logic that deals with what it means for a user to own a premium car or buy gas. To
+ * say it differently: For your own app, this repo shall know exactly everything the app is selling
+ * and how. And the app should not be selling anything that's not listed in this repo. Therefore,
+ * the engineers responsible for implementing the [BillingRepository] need to fully understand the
+ * app's business model.
  *
  * P.S.
  *
@@ -466,12 +465,12 @@ class BillingRepository private constructor(private val application: Application
      * and it saves them in the local cache. But if there are no new purchases, it calls the
      * secure server to check for purchases there.
      *
-     * Calls should not be made to the secure server too often -- it's co$tly. Instead calls should
-     * be made at intervals, such as only allow calls at least 2 hours apart. On the one hand,
-     * it is not good that users should not have access on Android to purchases they made through
-     * another OS; on the other hand, it is not good to be paying too much to hosting companies
-     * because the secure servers is being hit too often just to check for new purchases --
-     * unless users are actually buying items very often across multiple devices.
+     * Calls should not be made to the secure server too often since that can incur extra costs.
+     * Instead calls should be made at intervals, such as only allow calls at least 2 hours apart.
+     * On the one hand, it is not good that users should not have access on Android to purchases
+     * they made through another OS; on the other hand, it is not good to be paying too much to
+     * hosting companies because the secure servers is being hit too often just to check for new
+     * purchases -- unless users are actually buying items very often across multiple devices.
      *
      * In this sample, the variables lastInvocationTime and DEAD_BAND are used to
      * [throttle][Throttle] calls to the secure server. lastInvocationTime could be persisted in
@@ -558,12 +557,13 @@ class BillingRepository private constructor(private val application: Application
     private fun queryPurchasesFromSecureServer() {
         /* TODO FIXME:  This is not a real implementation. If you actually have a server, you must
 
-            This is not complicated. All you are doing is call the server and the server should
-            return all the active purchases it has for this user. Here are the steps
+            If you are using a secure server to verify purchases or facilitate purchases made
+            outside of Google Play then this is where you would make a request to that server to
+            get all of the active purchases it has for this user.  Here are the steps:
 
-            1- use retrofit with coroutine or RxJava to get all active purchases from the server
-            2 - compare the purchases in the local cache with those return by server
-            3 - if local cache has purchases that's not in the list from server, send those
+            1 - use retrofit with coroutine or RxJava to get all active purchases from the server
+            2 - compare the purchases in the local cache with those returned by server
+            3 - if local cache has purchases that aren't in the list from server, send those
                 purchases to server for investigation: you may be dealing with fraud.
             4 - Otherwise, update the local cache with the data from server with something like
 
@@ -581,7 +581,7 @@ class BillingRepository private constructor(private val application: Application
         getPurchasesFromSecureServerToLocalDB()
 
         //this is step 5: refresh lastInvocationTime.
-        //This is an important part of the throttling mechanism. Don't forget to do it
+        //This is an important part of the throttling mechanism.
         refreshLastInvocationTime(application)
 
         //TODO: FIXME: Again, this is not a real implementation. You must implement this yourself
@@ -593,9 +593,9 @@ class BillingRepository private constructor(private val application: Application
         TODO if you have a server:
         send purchases to server using maybe
 
-         `secureServerBillingClient.updateServer(newBatch.toSet())`
+         `secureServerBillingClient.updateServer(purchases)`
 
-         and then after server has processed the information, then get purchases from server using
+         and then after server has processed the information, get purchases from server using
          [queryPurchasesFromSecureServer], which will help clean up the local cache
          */
     }
@@ -704,10 +704,9 @@ class BillingRepository private constructor(private val application: Application
      * the [BillingRepository] to get the old sku if one exists. You too should have no problem
      * knowing this fact about your app.
      *
-     * We must here again reiterate. We don't want to make this sample app overwhelming. And so we
-     * are introducing ideas piecewise. This sample focuses more on overall architecture.
-     * So although we mention subscriptions, it is not about subscription per se. Classy Taxi is
-     * the sample app that focuses on subscriptions.
+     * We must here again reiterate. This sample focuses more on overall architecture, so although
+     * we mention subscriptions, it is not about subscription per se. Classy Taxi is the sample app
+     * that focuses on subscriptions.
      *
      */
     private fun getOldSku(sku: String?): String? {
@@ -781,9 +780,9 @@ class BillingRepository private constructor(private val application: Application
 
     /**
      * [Purchase] is a central data type. Hence it is used to update all the other data types
-     * presented to clients. Obviously it is used to update [entitlements][Entitlement]. Not so
-     * obvious, perhaps, is that it is also used to update the [AugmentedSkuDetails] entities
-     * (see the documentation of [AugmentedSkuDetails] for more context.)
+     * presented to clients. It is used to update [entitlements][Entitlement], but it is also used
+     * to update the [AugmentedSkuDetails] entities (see the documentation of [AugmentedSkuDetails]
+     * for more context.)
      *
      * This is Kotlin and so it makes sense to use coroutines to persist the data in the background.
      * But if an app prefers to use RxJava, they should feel free to do so.
@@ -986,7 +985,7 @@ class BillingRepository private constructor(private val application: Application
      * [INAPP_SKUS], [SUBS_SKUS], [CONSUMABLE_SKUS]:
      *
      * Where you define these lists is quite truly up to you. If you don't need customization, then
-     * it makes since to define and hardcode them here, as I am doing. Keep simple things simple.
+     * it makes since to define and hardcode them here, as I am doing.
      * But there are use cases where you may need customization:
      *
      * - If you don't want to update your APK (or Bundle) each time you change your SKUs, then you
