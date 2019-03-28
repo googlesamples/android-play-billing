@@ -374,7 +374,7 @@ class BillingRepository private constructor(private val application: Application
         playStoreBillingClient.endConnection()
         //normally you don't worry about closing a DB connection unless you have more than
         //one DB open. so no need to call 'localCacheBillingClient.close()'
-        Log.d(LOG_TAG, "startDataSourceConnections")
+        Log.d(LOG_TAG, "endDataSourceConnections")
     }
 
     private fun instantiateAndConnectToPlayBillingService() {
@@ -506,7 +506,7 @@ class BillingRepository private constructor(private val application: Application
 
         if (newBatch.isNotEmpty()) {
             sendPurchasesToServer(newBatch)
-            // We still care about purchasesResult in case a old purchase has not yet been consumed.
+            // We still care about purchasesResult in case an old purchase has not yet been consumed.
             saveToLocalDatabase(newBatch, purchasesResult)
             //consumeAsync(purchasesResult): do this inside saveToLocalDatabase to avoid race condition
         } else if (isLastInvocationTimeStale(application)) {
