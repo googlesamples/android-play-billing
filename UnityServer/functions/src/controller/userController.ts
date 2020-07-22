@@ -126,7 +126,7 @@ async function verify_purchase(packageName: string, productId: string, purchaseT
       token: purchaseToken,
     });
 
-    if (result.status === 200) {
+    if (result.status === SUCCESSFUL_CODE) {
       console.log("Play developer api call to get product is successful");
       return true;
     }
