@@ -15,11 +15,7 @@
  */
 
 import * as functions from 'firebase-functions';
-
-import { getPlayDeveloperApiClient } from '../../utils/PlayDevelopperApi';
 import { unityManager } from '../shared'
-
-const SUCCESSFUL_CODE: number = 200;
 
 export const register_user = functions.https.onRequest(async (request, response) => {
   response.send(await unityManager.registerUser(request.body.userId));
@@ -31,4 +27,8 @@ export const save_game_data = functions.https.onRequest(async (request, response
 
 export const get_game_data = functions.https.onRequest(async (request, response) => {
   response.send(await unityManager.getGameData(request.body.userId));
+});
+
+export const verify_and_save_purchaseToken = functions.https.onRequest(async (request, response) => {
+  response.send(await unityManager.verifyAndSavePurchaseToken(request.body.userId, request.body.receipt));
 });

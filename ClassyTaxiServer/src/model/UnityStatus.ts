@@ -23,7 +23,7 @@ export class UnityStatus {
   reason: string;
   result: string;
 
-  constructor(success: boolean, reason: string, result: string) {
+  constructor(success: boolean, reason: string = "", result: string = "") {
     this.success = success;
     this.reason = reason;
     this.result = result;

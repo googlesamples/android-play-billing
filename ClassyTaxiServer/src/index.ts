@@ -20,7 +20,7 @@ firebase.initializeApp();
 import { content_basic, content_premium } from './controller/functions/content'
 import { subscription_register, subscription_status, subscription_transfer, realtime_notification_listener } from './controller/functions/subscription'
 import { instanceId_register, instanceId_unregister } from './controller/functions/instance_id'
-import { register_user, save_game_data, get_game_data } from './controller/functions/unity'
+import { register_user, save_game_data, get_game_data, verify_and_save_purchaseToken} from './controller/functions/unity'
 
 
 /*
@@ -72,4 +72,8 @@ if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'save_game_data'
 
 if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'get_game_data') {
   exports.get_game_data = get_game_data;
+}
+
+if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'verify_and_save_purchaseToken') {
+  exports.verify_and_save_purchaseToken = verify_and_save_purchaseToken;
 }
