@@ -37,13 +37,12 @@ export class UnityManager {
       registered: true
     };
 
-    let result = this.usersCollectionReference.doc(userId).set(valuesToSave, { merge: true })
+    return this.usersCollectionReference.doc(userId).set(valuesToSave, { merge: true })
       .then(() => {
         return new UnityStatus(true, "", "");
       }).catch(error => {
         return new UnityStatus(false, error, "");
       });
-    return result;
   }
 
   async saveGameData(userId: string, gameData: string): Promise<UnityStatus> {
@@ -51,17 +50,16 @@ export class UnityManager {
       gameData: gameData
     };
 
-    let result = this.usersCollectionReference.doc(userId).set(valuesToSave, { merge: true })
+    return this.usersCollectionReference.doc(userId).set(valuesToSave, { merge: true })
       .then(() => {
         return new UnityStatus(true, "", "");
       }).catch(error => {
         return new UnityStatus(false, error, "");
       });
-    return result;
   }
 
   async getGameData(userId: string): Promise<UnityStatus> {
-    let result = this.usersCollectionReference.doc(userId).get()
+    return this.usersCollectionReference.doc(userId).get()
       .then(doc => {
         if (doc.exists && doc.data().gameData !== undefined && doc.data().gameData !== "") {
           return new UnityStatus(true, "", doc.data().gameData);
@@ -70,8 +68,5 @@ export class UnityManager {
       }).catch(error => {
         return new UnityStatus(false, error, "");
       });
-    return result;
   }
-
-
 }
