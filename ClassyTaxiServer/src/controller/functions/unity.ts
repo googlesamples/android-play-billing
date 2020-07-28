@@ -15,7 +15,8 @@
  */
 
 import * as functions from 'firebase-functions';
-import { unityManager } from '../shared'
+import { unityManager, playBilling } from '../shared';
+import { UnityStatus } from '../../model/UnityStatus';
 
 export const register_user = functions.https.onRequest(async (request, response) => {
   response.send(await unityManager.registerUser(request.body.userId));
@@ -30,5 +31,11 @@ export const get_game_data = functions.https.onRequest(async (request, response)
 });
 
 export const verify_and_save_purchaseToken = functions.https.onRequest(async (request, response) => {
-  response.send(await unityManager.verifyAndSavePurchaseToken(request.body.userId, request.body.receipt));
+  var purchaseInformation = unityManager.getReceiptAndPurchaseType(request.body.userId, request.body.receipt);
+  playBilling.purchases().queryPurchase(purchaseInformation.receipt.packageName, purchaseInformation.receipt.productId,
+    purchaseInformation.receipt.purchaseToken, purchaseInformation.purchaseType).then(() => {
+      response.send(new UnityStatus(true));
+    }).catch(error => {
+      response.send(new UnityStatus(false, error));
+    })
 });

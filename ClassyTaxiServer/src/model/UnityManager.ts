@@ -16,11 +16,9 @@
 
 import * as firebase from "firebase-admin";
 import { UnityStatus } from "./UnityStatus";
-import { getPlayDeveloperApiClient } from "../utils/PlayDevelopperApi";
+import { SkuType } from "../play-billing/types/purchases";
 
 const FIRESTORE_USERS_COLLECTION = 'users';
-const FIRESTORE_USERS_PURCHASES_COLLECTION = 'purchases';
-const SUCCESSFUL_CODE: number = 200;
 
 /* UnityManager is part of Model layer.
  * It manages request of users from the unity sample game.
@@ -30,8 +28,7 @@ export class UnityManager {
   private usersPurchasesCollectionReference: FirebaseFirestore.CollectionReference;
 
   constructor(firebaseApp: firebase.app.App) {
-    this.usersCollectionReference = firebaseApp.firestore().collection(FIRESTORE_USERS_COLLECTION)
-    this.usersPurchasesCollectionReference = firebaseApp.firestore().collection(FIRESTORE_USERS_PURCHASES_COLLECTION)
+    this.usersCollectionReference = firebaseApp.firestore().collection(FIRESTORE_USERS_COLLECTION);
   }
 
   async registerUser(userId: string): Promise<UnityStatus> {
@@ -72,107 +69,23 @@ export class UnityManager {
       });
   }
 
-  async verifyAndSavePurchaseToken(userId: string, jsonReceipt: string): Promise<UnityStatus> {
+  public getReceiptAndPurchaseType(userId: string, jsonReceipt: string) {
     const receipt = JSON.parse(this.getReceiptData(jsonReceipt));
-
-    return this.verifyWithDeveloperApi(receipt.packageName, receipt.productId, receipt.purchaseToken)
-      .then(() => {
-        const result = this.VerifyInDatabaseAndSave(userId, receipt);
-        if (result) {
-          return new UnityStatus(true, "Token is valid and is saved");
-        }
-        return new UnityStatus(false, "Token was not saved");
-      }).catch(error => {
-        return new UnityStatus(false, error);
-      });
+    return { receipt: receipt, purchaseType: this.getPurchaseType(receipt.productId) }
   }
 
-  private async VerifyInDatabaseAndSave(userId: string, receipt: any) {
-    receipt.userId = userId;
-    const tokenCall = this.usersPurchasesCollectionReference.doc(receipt.purchaseToken);
-
-    console.log(receipt);
-
-    tokenCall.get()
-      .then(purchaseToken => {
-        if (!purchaseToken.exists) {
-          return tokenCall.set(receipt)
-            .then(() => {
-              return true;
-            }).catch(() => {
-              return false;
-            });
-        } else {
-          return false;
-        }
-      })
-      .catch(() => {
-        return false;
-      });
-  }
-
-  private async  verifyWithDeveloperApi(packageName: string, productId: string, purchaseToken: string) {
+  private getPurchaseType(productId: string) {
     if (productId.includes('subscription')) {
-      return this.verifyPurchase(packageName, productId, purchaseToken);
+      return SkuType.SUBS;
     }
     else {
-      return this.verifySubscription(packageName, productId, purchaseToken);
+      return SkuType.ONE_TIME;
     }
-  }
-
-
-  private async verifyPurchase(packageName: string, productId: string, purchaseToken: string) {
-    try {
-      const playDeveloperApiClient = await getPlayDeveloperApiClient();
-      const result = await playDeveloperApiClient.purchases.products.get({
-        // The package name of the application the inapp product was sold in (for
-        // example, 'com.some.thing').
-        packageName: packageName,
-        // The inapp product SKU (for example, 'com.some.thing.inapp1').
-        productId: productId,
-        // The token provided to the user's device when the inapp product was
-        // purchased.
-        token: purchaseToken,
-      });
-
-      if (result.status === SUCCESSFUL_CODE) {
-        console.log("Play developer api call to get product is successful");
-        return true;
-      }
-    } catch (error) {
-      throw error;
-    }
-    throw Error('Error in play developer api call');
-  }
-
-  private async verifySubscription(packageName: string, productId: string, purchaseToken: string) {
-    try {
-      const playDeveloperApiClient = await getPlayDeveloperApiClient();
-      const result = await playDeveloperApiClient.purchases.subscriptions.get({
-
-        // The package name of the application the inapp product was sold in (for
-        // example, 'com.some.thing').
-        packageName: packageName,
-        // The inapp product SKU (for example, 'com.some.thing.inapp1').
-        subscriptionId: productId,
-        // The token provided to the user's device when the inapp product was
-        // purchased.
-        token: purchaseToken,
-      });
-
-      if (result.status === SUCCESSFUL_CODE) {
-        console.log("Play developer api call to get subscription is successful");
-        return true;
-      }
-    } catch (error) {
-      throw error;
-    }
-    throw Error('Error in play developer api call');
   }
 
   private getReceiptData(receipt: string) {
     let receiptInfo = receipt;
-    receiptInfo = receiptInfo.replace('\\', '');
+    receiptInfo = receiptInfo.replace(/\\/g, '');
     return receiptInfo.slice(receiptInfo.search("orderId") - 2, receiptInfo.search("signature") - 3);
   }
 }
