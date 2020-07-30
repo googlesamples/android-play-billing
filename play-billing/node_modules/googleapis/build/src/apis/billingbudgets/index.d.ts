@@ -1,0 +1,10 @@
+/*! THIS FILE IS AUTO-GENERATED */
+import { AuthPlus } from 'googleapis-common';
+import { billingbudgets_v1beta1 } from './v1beta1';
+export declare const VERSIONS: {
+    v1beta1: typeof billingbudgets_v1beta1.Billingbudgets;
+};
+export declare function billingbudgets(version: 'v1beta1'): billingbudgets_v1beta1.Billingbudgets;
+export declare function billingbudgets(options: billingbudgets_v1beta1.Options): billingbudgets_v1beta1.Billingbudgets;
+declare const auth: AuthPlus;
+export { auth };
