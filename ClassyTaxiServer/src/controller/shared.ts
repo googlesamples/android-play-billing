@@ -21,7 +21,6 @@ import { PlayBilling } from "../play-billing";
 import * as serviceAccountPlay from '../service-account.json'
 import { InstanceIdManager } from '../model/InstanceIdManager';
 import { ContentManager } from '../model/ContentManager';
-import { UnityManager } from '../model/UnityManager';
 
 /*
  * This file defines shared resources that are used in functions
@@ -34,7 +33,6 @@ export const PACKAGE_NAME = functions.config().app.package_name;
 export const playBilling = PlayBilling.fromServiceAccount(serviceAccountPlay, firebase.app());
 export const instanceIdManager = new InstanceIdManager(firebase.app());
 export const contentManager = new ContentManager();
-export const unityManager = new UnityManager(firebase.app());
 
 // Shared verification functions
 // Verify if the user making the call has signed in

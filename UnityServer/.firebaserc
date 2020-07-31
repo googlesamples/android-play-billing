@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "simpleserver-d2cf5"
+    "default": "simpleserver-d2cf5",
+    "y": "simpleserver-d2cf5"
   }
 }

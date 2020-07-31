@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-import * as firebase from 'firebase-admin';
-firebase.initializeApp();
-
-import { register_user, verify_and_save_purchase_token, save_game_data, get_game_data } from './controller/userController'
-
+import { register_user, save_game_data, get_game_data, verify_and_save_purchase_token } from './controller/functions/unity';
 
 if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'register_user') {
   exports.register_user = register_user;
 }
-
 
 if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'verify_and_save_purchase_token') {
   exports.verify_and_save_purchase_token = verify_and_save_purchase_token;
