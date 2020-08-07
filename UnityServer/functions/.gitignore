@@ -6,3 +6,5 @@
 typings/
 
 node_modules/
+
+lib/
