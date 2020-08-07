@@ -82,6 +82,34 @@ export class UnityManager {
       });
   }
 
+  async checkSubscriptionPriceChange(userId: string): Promise<UnityStatus> {
+    return this.usersCollectionReference.doc(userId).collection("subscription").doc("receipt").get()
+      .then(doc => {
+        if (doc.exists) {
+          const receipt = {
+            packageName: doc.data() ?.packageName,
+            productId: doc.data() ?.productId,
+            purchaseToken: doc.data() ?.purchaseToken
+          }
+
+          return this.verifier.verifySub(receipt).then((result: any) => {
+            console.log(result.payload);
+            if (result.payload.priceChange !== undefined && result.payload.priceChange.state === 0) {
+              return new UnityStatus(true, "Subscription price change and has not been accepted by user");
+            } else {
+              return new UnityStatus(false, "Subscription price has not change or has been accepted by user");
+            }
+          }).catch((error: any) => {
+            return new UnityStatus(false, error);
+          });
+        } else {
+          return new UnityStatus(false, "No active subscription");
+        }
+      }).catch(error => {
+        return new UnityStatus(false, error);
+      });
+  }
+
   async verifyAndSavePurchase(userId: string, jsonReceipt: string): Promise<UnityStatus> {
     const purchaseInformation = this.getReceiptAndPurchaseType(jsonReceipt);
 
@@ -92,12 +120,24 @@ export class UnityManager {
         return new UnityStatus(false, error.errorMessage);
       });
     } else {
-      return this.verifier.verifySub(purchaseInformation.receipt).then(() => {
-        return this.verifyPurchaseAndSaveInDB(userId, purchaseInformation.receipt);
+      return this.verifier.verifySub(purchaseInformation.receipt).then(async () => {
+        const unityStatus = await this.verifyPurchaseAndSaveInDB(userId, purchaseInformation.receipt);
+        if (unityStatus.success) {
+          return this.saveSubscriptionTokenInUsers(userId, purchaseInformation.receipt);
+        }
+        return unityStatus;
       }).catch((error: any) => {
         return new UnityStatus(false, error.errorMessage);
       });
     }
+  }
+
+  async saveSubscriptionTokenInUsers(userId: string, receipt: any): Promise<UnityStatus> {
+    return this.usersCollectionReference.doc(userId).collection("subscription").doc("receipt").set(receipt).then(() => {
+      return new UnityStatus(true, "Save in database");
+    }).catch(error => {
+      return new UnityStatus(false, error);
+    });
   }
 
   async verifyPurchaseAndSaveInDB(userId: string, receipt: any): Promise<UnityStatus> {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { register_user, save_game_data, get_game_data, verify_and_save_purchase_token } from './controller/functions/unity';
+import { register_user, save_game_data, get_game_data, verify_and_save_purchase_token, check_subscription_price_change} from './controller/functions/unity';
 
 if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'register_user') {
   exports.register_user = register_user;
@@ -30,4 +30,8 @@ if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'save_game_data'
 
 if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'get_game_data') {
   exports.get_game_data = get_game_data;
+}
+
+if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'check_subscription_price_change') {
+  exports.check_subscription_price_change = check_subscription_price_change;
 }

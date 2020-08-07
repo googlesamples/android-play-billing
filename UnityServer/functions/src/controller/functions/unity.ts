@@ -32,3 +32,7 @@ export const get_game_data = functions.https.onRequest(async (request, response)
 export const verify_and_save_purchase_token = functions.https.onRequest(async (request, response) => {
   response.send(await unityManager.verifyAndSavePurchase(request.body.userId, request.body.receipt));
 });
+
+export const check_subscription_price_change = functions.https.onRequest(async (request, response) => {
+  response.send(await unityManager.checkSubscriptionPriceChange(request.body.userId));
+});
