@@ -69,5 +69,5 @@ web/app/**/*.map
 jspm_packages
 
 *.code-workspace
-server/lib/
+lib/
 

@@ -65,6 +65,11 @@ class BillingClientLifecycle private constructor(
     companion object {
         private const val TAG = "BillingLifecycle"
 
+        private val LIST_OF_SKUS = listOf(
+                Constants.BASIC_SKU,
+                Constants.PREMIUM_SKU
+        )
+
         @Volatile
         private var INSTANCE: BillingClientLifecycle? = null
 
@@ -126,10 +131,7 @@ class BillingClientLifecycle private constructor(
         Log.d(TAG, "querySkuDetails")
         val params = SkuDetailsParams.newBuilder()
                 .setType(BillingClient.SkuType.SUBS)
-                .setSkusList(listOf(
-                        Constants.BASIC_SKU,
-                        Constants.PREMIUM_SKU
-                ))
+                .setSkusList(LIST_OF_SKUS)
                 .build()
         params?.let { skuDetailsParams ->
             Log.i(TAG, "querySkuDetailsAsync")
@@ -151,16 +153,30 @@ class BillingClientLifecycle private constructor(
         when (responseCode) {
             BillingClient.BillingResponseCode.OK -> {
                 Log.i(TAG, "onSkuDetailsResponse: $responseCode $debugMessage")
+                val expectedSkuDetailsCount = LIST_OF_SKUS.size
                 if (skuDetailsList == null) {
-                    Log.w(TAG, "onSkuDetailsResponse: null SkuDetails list")
                     skusWithSkuDetails.postValue(emptyMap())
+                    Log.e(TAG, "onSkuDetailsResponse: " +
+                            "Expected ${expectedSkuDetailsCount}, " +
+                            "Found null SkuDetails. " +
+                            "Check to see if the SKUs you requested are correctly published " +
+                            "in the Google Play Console.")
                 } else
                     skusWithSkuDetails.postValue(HashMap<String, SkuDetails>().apply {
                         for (details in skuDetailsList) {
                             put(details.sku, details)
                         }
                     }.also { postedValue ->
-                        Log.i(TAG, "onSkuDetailsResponse: count ${postedValue.size}")
+                        val skuDetailsCount = postedValue.size
+                        if (skuDetailsCount == expectedSkuDetailsCount) {
+                            Log.i(TAG, "onSkuDetailsResponse: Found ${skuDetailsCount} SkuDetails")
+                        } else {
+                            Log.e(TAG, "onSkuDetailsResponse: " +
+                                    "Expected ${expectedSkuDetailsCount}, " +
+                                    "Found ${skuDetailsCount} SkuDetails. " +
+                                    "Check to see if the SKUs you requested are correctly published " +
+                                    "in the Google Play Console.")
+                        }
                     })
             }
             BillingClient.BillingResponseCode.SERVICE_DISCONNECTED,

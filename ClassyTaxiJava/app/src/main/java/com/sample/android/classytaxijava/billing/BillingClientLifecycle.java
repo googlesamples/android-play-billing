@@ -50,6 +50,12 @@ public class BillingClientLifecycle implements LifecycleObserver, PurchasesUpdat
 
     private static final String TAG = "BillingLifecycle";
 
+    private static final List<String> LIST_OF_SKUS = Collections.unmodifiableList(
+            new ArrayList<String>() {{
+                add(Constants.BASIC_SKU);
+                add(Constants.PREMIUM_SKU);
+            }});
+
     /**
      * The purchase event is observable. Only one observer will be notified.
      */
@@ -149,16 +155,30 @@ public class BillingClientLifecycle implements LifecycleObserver, PurchasesUpdat
         switch (responseCode) {
             case BillingClient.BillingResponseCode.OK:
                 Log.i(TAG, "onSkuDetailsResponse: " + responseCode + " " + debugMessage);
+                final int expectedSkuDetailsCount = LIST_OF_SKUS.size();
                 if (skuDetailsList == null) {
-                    Log.w(TAG, "onSkuDetailsResponse: null SkuDetails list");
                     skusWithSkuDetails.postValue(Collections.<String, SkuDetails>emptyMap());
+                    Log.e(TAG, "onSkuDetailsResponse: " +
+                            "Expected " + expectedSkuDetailsCount + ", " +
+                            "Found null SkuDetails. " +
+                            "Check to see if the SKUs you requested are correctly published " +
+                            "in the Google Play Console.");
                 } else {
                     Map<String, SkuDetails> newSkusDetailList = new HashMap<String, SkuDetails>();
                     for (SkuDetails skuDetails : skuDetailsList) {
                         newSkusDetailList.put(skuDetails.getSku(), skuDetails);
                     }
                     skusWithSkuDetails.postValue(newSkusDetailList);
-                    Log.i(TAG, "onSkuDetailsResponse: count " + newSkusDetailList.size());
+                    int skuDetailsCount = newSkusDetailList.size();
+                    if (skuDetailsCount == expectedSkuDetailsCount) {
+                        Log.i(TAG, "onSkuDetailsResponse: Found " + skuDetailsCount + " SkuDetails");
+                    } else {
+                        Log.e(TAG, "onSkuDetailsResponse: " +
+                                "Expected " + expectedSkuDetailsCount + ", " +
+                                "Found " + skuDetailsCount + " SkuDetails. " +
+                                "Check to see if the SKUs you requested are correctly published " +
+                                "in the Google Play Console.");
+                    }
                 }
                 break;
             case BillingClient.BillingResponseCode.SERVICE_DISCONNECTED:
@@ -304,16 +324,10 @@ public class BillingClientLifecycle implements LifecycleObserver, PurchasesUpdat
      */
     public void querySkuDetails() {
         Log.d(TAG, "querySkuDetails");
-
-        List<String> skus = new ArrayList<>();
-        skus.add(Constants.BASIC_SKU);
-        skus.add(Constants.PREMIUM_SKU);
-
         SkuDetailsParams params = SkuDetailsParams.newBuilder()
                 .setType(BillingClient.SkuType.SUBS)
-                .setSkusList(skus)
+                .setSkusList(LIST_OF_SKUS)
                 .build();
-
         Log.i(TAG, "querySkuDetailsAsync");
         billingClient.querySkuDetailsAsync(params, this);
     }

@@ -1,6 +1,7 @@
 # built application files
 *.apk
 *.ap_
+app/release
 
 # files for the dex VM
 *.dex
@@ -41,7 +42,8 @@ captures/
 # Keystore
 *keystore.properties
 *.jks
+*.pepk
 
 # Google Services
-app/src/main/google-services.json
+*/google-services.json
 
