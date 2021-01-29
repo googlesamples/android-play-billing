@@ -61,6 +61,7 @@ typings/
 .next
 
 **/.firebaserc
+.firebase/
 service-account*.json
 
 typings
