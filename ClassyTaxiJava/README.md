@@ -103,6 +103,8 @@ This sample application uses Firebase (Auth, Notifications, Firestore).
 
 1. In the project, go to Build > Cloud Firestore > Create database > Start in **production mode**
 
+1. In the project, go to Build > Functions> Get started. Enable Functions.
+
 1. In the project, go to Build > Authentication > Get started > Sign-in method. Enable **Email/Password** and **Google**
  as Sign-in providers
 
@@ -198,6 +200,12 @@ step now, and rebuild with the updated `google-services.json`
 
         *  `{project_folder}/ClassyTaxiServer/src/service-account.json`
 
+    * Provide the necessary **Account permission** to the service account email address [https://play.google.com/console/developers/users-and-permissions](https://play.google.com/console/developers/users-and-permissions)
+
+        * **View financial data, orders, and cancellation survey responses**
+
+        * **Manage orders and subscriptions**
+
 1. Recommended: Create a license test account to [test subscriptions quickly](https://android-developers.googleblog.com/2018/01/faster-renewals-for-test-subscriptions.html) without spending money
 
     * [https://developer.android.com/google/play/billing/billing_testing.html#test-purchases-sandbox](https://developer.android.com/google/play/billing/billing_testing.html#test-purchases-sandbox)
@@ -258,7 +266,7 @@ These are steps to build the backend server code located [here](https://github.c
     ```
         cd {project_folder}/ClassyTaxiServer
         npm install
-```
+    ```
 
 1. Run `firebase deploy` to deploy your backend to Cloud Functions for Firebase
 
@@ -270,6 +278,20 @@ Functions log.
 
   * A: You can safely ignore the warning and stay use the Firebase Spark Plan because the sample
   only accesses the Google network.
+
+* Q: The logs on your server show an error: "*Unexpected error when querying Google Play Developer API. Please check if you use a correct service account*".
+
+  * A: Check that the `service-account.json` that you deployed to your server
+    matches the service account email that is registered in the
+    Google Play Console
+    [https://play.google.com/console/u/0/developers/api-access](https://play.google.com/console/u/0/developers/api-access).
+
+* Q: "*The current user has insufficient permissions to perform the requested operation.*"
+
+  * A: Check that the the service account email that is registered in the
+    Google Play Console has the necessary **Account permission** [https://play.google.com/console/developers/users-and-permissions](https://play.google.com/console/developers/users-and-permissions)
+      * **View financial data, orders, and cancellation survey responses**
+      * **Manage orders and subscriptions**
 
 * Q: Android build: `Execution failed for task :app:processDebugGoogleServices. File
 google-services.json is missing. The Google Services Plugin cannot function without it`.
