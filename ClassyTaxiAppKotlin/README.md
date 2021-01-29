@@ -241,34 +241,8 @@ PubSub
 
 # Deploy Backend Server
 
-These are steps to build the backend server code located [here](https://github.com/android/play-billing-samples/tree/master/ClassyTaxiServer)
-
-1. Make sure you have installed Node.js, npm, and Firebase CLI
-
-    * [https://firebase.google.com/docs/cli/](https://firebase.google.com/docs/cli/)
-
-1. Run `npm install` to install dependencies
-
-1. Configure Cloud Functions for Firebase with your Android app and subscription products
-
-    ```
-       firebase use --add {your_firebase_project_id}
-
-       firebase functions:config:set app.package_name="your_android_application_id"
-
-       firebase functions:config:set app.basic_plan_sku="basic_subscription"
-
-       firebase functions:config:set app.premium_plan_sku="premium_subscription"
-    ```
-
-1. Install Node packages
-
-    ```
-        cd {project_folder}/ClassyTaxiServer
-        npm install
-    ```
-
-1. Run `firebase deploy` to deploy your backend to Cloud Functions for Firebase
+Follow the steps to deploy the backend server here:
+[here](https://github.com/android/play-billing-samples/tree/master/ClassyTaxiServer).
 
 # Troubleshoot common issues
 
