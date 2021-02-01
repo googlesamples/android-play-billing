@@ -43,6 +43,10 @@
     <string name="account_hold_message">Classy Taxi is stuck! Your account is on hold because there’s a problem with your payment method. Update your payment method or add a new one to restore your subscription.</string>
     <string name="fix_button_text">Manage payment methods</string>
 
+    <!-- Account paused -->
+    <string name="account_paused_message">Classy Taxi is taking a break. Payments for your subscription are paused and will automatically resume. You can resume your subscription at any time.</string>
+    <string name="account_paused_button_text">Manage subscription</string>
+
     <!-- Active subscriptions -->
     <string name="premium_message">You have a Premium subscription</string>
     <string name="basic_message">You have a Basic subscription</string>
@@ -69,11 +73,13 @@
     <string name="subscription_option_basic_message">Basic plan</string>
     <string name="subscription_option_basic_message_current">Basic plan (current)</string>
     <string name="subscription_option_basic_message_account_hold">Basic plan (on hold)</string>
+    <string name="subscription_option_basic_message_account_paused">Basic plan (paused)</string>
     <string name="subscription_option_basic_message_grace_period">Basic plan (payment issue)</string>
     <string name="subscription_option_basic_message_restore">Basic plan (canceled)</string>
     <string name="subscription_option_premium_message">Premium plan</string>
     <string name="subscription_option_premium_message_current">Premium plan (current)</string>
     <string name="subscription_option_premium_message_account_hold">Premium plan (on hold)</string>
+    <string name="subscription_option_premium_message_account_paused">Premium plan (paused)</string>
     <string name="subscription_option_premium_message_grace_period">Premium plan (payment issue)</string>
     <string name="subscription_option_premium_message_restore">Premium plan (canceled)</string>
 

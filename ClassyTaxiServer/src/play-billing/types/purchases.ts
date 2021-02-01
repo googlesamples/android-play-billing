@@ -34,7 +34,7 @@ export interface Purchase {
 }
 /*
  * Respresting a one-time purchase made via Google Play Billing
- */ 
+ */
 export interface OneTimeProductPurchase extends Purchase {
   // Raw response from server
   // https://developers.google.com/android-publisher/api-ref/purchases/products
@@ -47,9 +47,9 @@ export interface OneTimeProductPurchase extends Purchase {
 
 /*
  * Respresting a recurring subscription purchase made via Google Play Billing
- * It exposes the raw response received from Google Play Developer API, 
+ * It exposes the raw response received from Google Play Developer API,
  * and adds some util methods that interpretes the API response to a more human-friendly format.
- */ 
+ */
 export interface SubscriptionPurchase extends Purchase {
   // Raw response from server
   // https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/get
@@ -80,6 +80,7 @@ export interface SubscriptionPurchase extends Purchase {
   isFreeTrial(): boolean;
   isGracePeriod(): boolean;
   isAccountHold(): boolean;
+  isPaused(): boolean;
   activeUntilDate(): Date;
 }
 

@@ -21,6 +21,7 @@ import com.example.subscriptions.R
 import com.example.subscriptions.billing.isAccountHold
 import com.example.subscriptions.billing.isBasicContent
 import com.example.subscriptions.billing.isGracePeriod
+import com.example.subscriptions.billing.isPaused
 import com.example.subscriptions.billing.isPremiumContent
 import com.example.subscriptions.billing.isSubscriptionRestore
 import com.example.subscriptions.data.SubscriptionStatus
@@ -33,6 +34,8 @@ import com.example.subscriptions.data.SubscriptionStatus
 fun basicTextForSubscription(res: Resources, subscription: SubscriptionStatus): String {
     val text = if (isAccountHold(subscription)) {
         res.getString(R.string.subscription_option_basic_message_account_hold)
+    } else if (isPaused(subscription)) {
+        res.getString(R.string.subscription_option_basic_message_account_paused)
     } else if (isGracePeriod(subscription)) {
         res.getString(R.string.subscription_option_basic_message_grace_period)
     } else if (isSubscriptionRestore(subscription)) {
@@ -58,6 +61,8 @@ fun basicTextForSubscription(res: Resources, subscription: SubscriptionStatus): 
 fun premiumTextForSubscription(res: Resources, subscription: SubscriptionStatus): String {
     val text = if (isAccountHold(subscription)) {
         res.getString(R.string.subscription_option_premium_message_account_hold)
+    } else if (isPaused(subscription)) {
+        res.getString(R.string.subscription_option_premium_message_account_paused)
     } else if (isGracePeriod(subscription)) {
         res.getString(R.string.subscription_option_premium_message_grace_period)
     } else if (isSubscriptionRestore(subscription)) {

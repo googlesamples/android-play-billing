@@ -26,6 +26,7 @@ import com.example.subscriptions.R
 import com.example.subscriptions.billing.isAccountHold
 import com.example.subscriptions.billing.isBasicContent
 import com.example.subscriptions.billing.isGracePeriod
+import com.example.subscriptions.billing.isPaused
 import com.example.subscriptions.billing.isPremiumContent
 import com.example.subscriptions.billing.isSubscriptionRestore
 import com.example.subscriptions.billing.isTransferRequired
@@ -34,6 +35,7 @@ import com.example.subscriptions.data.SubscriptionStatus
 import com.example.subscriptions.utils.basicTextForSubscription
 import com.example.subscriptions.utils.premiumTextForSubscription
 import kotlinx.android.synthetic.main.fragment_home.view.home_account_hold_message
+import kotlinx.android.synthetic.main.fragment_home.view.home_account_paused_message
 import kotlinx.android.synthetic.main.fragment_home.view.home_basic_image
 import kotlinx.android.synthetic.main.fragment_home.view.home_basic_message
 import kotlinx.android.synthetic.main.fragment_home.view.home_basic_text
@@ -42,6 +44,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.home_paywall_message
 import kotlinx.android.synthetic.main.fragment_home.view.home_restore_message
 import kotlinx.android.synthetic.main.fragment_home.view.home_transfer_message
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_account_hold_message
+import kotlinx.android.synthetic.main.fragment_premium.view.premium_account_paused_message
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_grace_period_message
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_paywall_message
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_premium_content
@@ -152,6 +155,7 @@ fun updateHomeViews(view: View, subscriptions: List<SubscriptionStatus>?) {
     view.home_grace_period_message.visibility = View.GONE
     view.home_transfer_message.visibility = View.GONE
     view.home_account_hold_message.visibility = View.GONE
+    view.home_account_paused_message.visibility = View.GONE
     view.home_basic_message.visibility = View.GONE
     // Update based on subscription information.
     subscriptions?.let {
@@ -178,6 +182,11 @@ fun updateHomeViews(view: View, subscriptions: List<SubscriptionStatus>?) {
             if (isAccountHold(subscription)) {
                 Log.d(TAG, "account hold VISIBLE")
                 view.home_account_hold_message.visibility = View.VISIBLE
+                view.home_paywall_message.visibility = View.GONE // Paywall gone.
+            }
+            if (isPaused(subscription)) {
+                Log.d(TAG, "account paused VISIBLE")
+                view.home_account_paused_message.visibility = View.VISIBLE
                 view.home_paywall_message.visibility = View.GONE // Paywall gone.
             }
             if (isBasicContent(subscription) || isPremiumContent(subscription)) {
@@ -207,6 +216,7 @@ fun updatePremiumViews(view: View, subscriptions: List<SubscriptionStatus>?) {
     view.premium_grace_period_message.visibility = View.GONE
     view.premium_transfer_message.visibility = View.GONE
     view.premium_account_hold_message.visibility = View.GONE
+    view.premium_account_paused_message.visibility = View.GONE
     view.premium_premium_content.visibility = View.GONE
     view.premium_upgrade_message.visibility = View.GONE
 
@@ -239,6 +249,11 @@ fun updatePremiumViews(view: View, subscriptions: List<SubscriptionStatus>?) {
             if (isAccountHold(subscription)) {
                 Log.d(TAG, "account hold VISIBLE")
                 view.premium_account_hold_message.visibility = View.VISIBLE
+                view.premium_paywall_message.visibility = View.GONE // Paywall gone.
+            }
+            if (isPaused(subscription)) {
+                Log.d(TAG, "account paused VISIBLE")
+                view.premium_account_paused_message.visibility = View.VISIBLE
                 view.premium_paywall_message.visibility = View.GONE // Paywall gone.
             }
 

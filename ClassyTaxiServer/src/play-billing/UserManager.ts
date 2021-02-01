@@ -60,7 +60,7 @@ export default class UserManager {
       for (const purchaseRecordSnapshot of queryResult.docs) {
         let purchase: SubscriptionPurchase = SubscriptionPurchaseImpl.fromFirestoreObject(purchaseRecordSnapshot.data())
 
-        if (!purchase.isEntitlementActive() && !purchase.isAccountHold()) {
+        if (!purchase.isEntitlementActive() && !purchase.isAccountHold() && !purchase.isPaused()) {
           // If a subscription purchase record in Firestore indicates says that it has expired,
           // and we haven't confirmed that it's in Account Hold,
           // and we know that its status could have been changed since we last fetch its details,
@@ -70,7 +70,7 @@ export default class UserManager {
         }
 
         // Add the updated purchase to list to returned to clients
-        if (purchase.isEntitlementActive() || purchase.isAccountHold()) {
+        if (purchase.isEntitlementActive() || purchase.isAccountHold() || purchase.isPaused()) {
           purchaseList.push(purchase);
         }
       }

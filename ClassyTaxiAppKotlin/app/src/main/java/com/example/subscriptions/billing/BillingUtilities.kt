@@ -141,6 +141,15 @@ fun isAccountHold(subscription: SubscriptionStatus?) =
                 !subscription.subAlreadyOwned
 
 /**
+ * Returns true if account pause should be shown.
+ */
+fun isPaused(subscription: SubscriptionStatus?) =
+        subscription != null &&
+                !subscription.isEntitlementActive &&
+                subscription.isPaused &&
+                !subscription.subAlreadyOwned
+
+/**
  * Returns true if the subscription is already owned and requires a transfer to this account.
  */
 fun isTransferRequired(subscription: SubscriptionStatus?) =

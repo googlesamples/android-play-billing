@@ -61,7 +61,7 @@ export class OneTimeProductPurchaseImpl implements OneTimeProductPurchase {
   consumptionState: number;
   orderId: string;
   purchaseType: number;
-  
+
   // Library-managed Purchase properties
   packageName: string;
   purchaseToken: string;
@@ -125,7 +125,7 @@ export class SubscriptionPurchaseImpl implements SubscriptionPurchase {
   orderId: string;
   linkedPurchaseToken: string;
   purchaseType?: number;
-  
+
   // Library-managed Purchase properties
   packageName: string;
   purchaseToken: string;
@@ -209,9 +209,16 @@ export class SubscriptionPurchaseImpl implements SubscriptionPurchase {
     const now = Date.now();
     return (now > this.expiryTimeMillis) // the subscription has expired
       && (this.autoRenewing === true) // but Google Play still try to renew it
+      && (this.paymentState === 0) // and the payment is pending
       && (this.verifiedAt > this.expiryTimeMillis) // and we already fetch purchase details after the subscription has expired
-    // One can also check if (this.latestNotificationType === NotificationType.SUBSCRIPTION_ON_HOLD)
-    // Either way is fine. We decide to rely on Subscriptions:get API response because it works even when realtime dev notification delivery is delayed
+  }
+
+  isPaused(): boolean {
+    const now = Date.now();
+    return (now > this.expiryTimeMillis) // the subscription has expired
+        && (this.autoRenewing === true) // but Google Play still try to renew it
+        && (this.paymentState === 1) // and the payment is received
+        && (this.verifiedAt > this.expiryTimeMillis) // and we already fetch purchase details after the subscription has expired
   }
 
   activeUntilDate(): Date {
