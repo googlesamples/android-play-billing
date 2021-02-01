@@ -29,7 +29,7 @@ export default class PurchaseManager {
   /*
    * This class is intended to be initialized by the library.
    * Library consumer should not initialize this class themselves.
-   */ 
+   */
   constructor(private purchasesDbRef: CollectionReference, private playDeveloperApiClient: any) { };
 
   /*
@@ -37,7 +37,7 @@ export default class PurchaseManager {
    * The method queries Google Play Developer API to get the latest status of the purchase,
    * then merge it with purchase ownership info stored in the library's managed Firestore database,
    * then returns the merge information as a OneTimeProductPurchase to its caller.
-   */ 
+   */
   async queryOneTimeProductPurchase(packageName: string, sku: string, purchaseToken: string): Promise<OneTimeProductPurchase> {
     // STEP 1. Query Play Developer API to verify the purchase token
     const apiResponse = await new Promise((resolve, reject) => {
@@ -90,14 +90,14 @@ export default class PurchaseManager {
    * The method queries Google Play Developer API to get the latest status of the purchase,
    * then merge it with purchase ownership info stored in the library's managed Firestore database,
    * then returns the merge information as a SubscriptionPurchase to its caller.
-   */ 
+   */
   querySubscriptionPurchase(packageName: string, sku: string, purchaseToken: string): Promise<SubscriptionPurchase> {
     return this.querySubscriptionPurchaseWithTrigger(packageName, sku, purchaseToken);
   }
 
   /*
    * Actual private information of querySubscriptionPurchase(packageName, sku, purchaseToken)
-   * It's expanded to support storing extra information only available via Realtime Developer Notification, 
+   * It's expanded to support storing extra information only available via Realtime Developer Notification,
    * such as latest notification type.
    *  - triggerNotificationType is only neccessary if the purchase query action is triggered by a Realtime Developer notification
    */
@@ -165,7 +165,7 @@ export default class PurchaseManager {
    * For example, an user signs up for a subscription (tokenA), cancel its and re-signups (tokenB)
    * We must disable the subscription linked to tokenA because it has been replaced by tokenB.
    * If failed to do so, there's chance that a malicious user can have a single purchase registered to multiple user accounts.
-   * 
+   *
    * This method is used to disable a replaced subscription. It's not intended to be used from outside of the library.
    */
   private async disableReplacedSubscription(packageName: string, sku: string, purchaseToken: string): Promise<void> {
@@ -194,10 +194,10 @@ export default class PurchaseManager {
           if (err) {
             console.warn('Error fetching purchase data from Play Developer API to backfilled missing purchase record in Firestore. ', err.message);
             // We only log an warning to console log as there is chance that backfilling is impossible.
-            // For example: after a subscription upgrade, the new token has linkedPurchaseToken to be the token before upgrade. 
+            // For example: after a subscription upgrade, the new token has linkedPurchaseToken to be the token before upgrade.
             // We can't tell the sku of the purchase before upgrade from the old token itself, so we can't query Play Developer API
             // to backfill our cache.
-            resolve();
+            resolve(null);
           } else {
             resolve(result.data);
           }
@@ -251,7 +251,7 @@ export default class PurchaseManager {
   }
 
   /*
-   * Register a purchase (both one-time product and recurring subscription) to a user. 
+   * Register a purchase (both one-time product and recurring subscription) to a user.
    * It's intended to be exposed to Android app to verify purchases made in the app
    */
   async registerToUserAccount(packageName: string, sku: string, purchaseToken: string, skuType: SkuType, userId: string): Promise<void> {

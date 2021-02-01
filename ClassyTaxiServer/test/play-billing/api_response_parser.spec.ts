@@ -48,9 +48,9 @@ describe('Google Play Developer API response parser', () => {
       expect(subscription.willRenew(), 'willRenew()').to.be.true;
 
       // Verify that values of the original API response are all copied to the SubscriptionPurchase object.
-      // We ignore type check because we do some type conversion (i.e. startTimeMillis: convert from string to int), 
+      // We ignore type check because we do some type conversion (i.e. startTimeMillis: convert from string to int),
       // hence we use == instead of === below.
-      Object.keys(apiResponse).forEach(key => expect(subscription[key] == apiResponse[key], `${key} is correctly copied`).to.be.true);
+      Object.keys(apiResponse).forEach(key => expect(subscription[key] === apiResponse[key], `${key} is correctly copied`).to.be.true);
     });
 
     it('Trial subscription should be correctly parsed', () => {
