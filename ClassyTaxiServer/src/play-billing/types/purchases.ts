@@ -55,6 +55,7 @@ export interface SubscriptionPurchase extends Purchase {
   // https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/get
   startTimeMillis: number;
   expiryTimeMillis: number;
+  autoResumeTimeMillis: number;
   autoRenewing: boolean;
   priceCurrencyCode: string;
   priceAmountMicros: number;

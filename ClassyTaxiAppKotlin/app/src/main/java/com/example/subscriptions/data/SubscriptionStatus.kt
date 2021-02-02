@@ -42,7 +42,8 @@ data class SubscriptionStatus (
         var isFreeTrial: Boolean = false,
         var isGracePeriod: Boolean = false,
         var isAccountHold: Boolean = false,
-        var isPaused: Boolean = false
+        var isPaused: Boolean = false,
+        var autoResumeTimeMillis: Long = 0
 ) {
 
     data class SubscriptionStatusList (
@@ -61,6 +62,7 @@ data class SubscriptionStatus (
         const val IS_GRACE_PERIOD_KEY = "isGracePeriod"
         const val IS_ACCOUNT_HOLD_KEY = "isAccountHold"
         const val IS_PAUSED_KEY = "isPaused"
+        const val AUTO_RESUME_TIME_MILLISEC_KEY = "autoResumeTimeMillis"
 
         /**
          * Parse subscription data from Map and return null if data is not valid.
@@ -98,6 +100,9 @@ data class SubscriptionStatus (
                     }
                     (subStatus[IS_PAUSED_KEY] as? Boolean)?.let {
                         isPaused = it
+                    }
+                    (subStatus[AUTO_RESUME_TIME_MILLISEC_KEY] as? Long)?.let {
+                        autoResumeTimeMillis = it
                     }
                 })
             }
