@@ -52,6 +52,9 @@ public class SubscriptionStatus {
     public static final String IS_FREE_TRIAL_KEY = "isFreeTrial";
     public static final String IS_GRACE_PERIOD_KEY = "isGracePeriod";
     public static final String IS_ACCOUNT_HOLD_KEY = "isAccountHold";
+    public static final String IS_PAUSED_KEY = "isPaused";
+    public static final String AUTO_RESUME_TIME_MILLISEC_KEY = "autoResumeTimeMillis";
+
 
     // Local fields
     @PrimaryKey(autoGenerate = true)
@@ -72,6 +75,8 @@ public class SubscriptionStatus {
     public boolean isFreeTrial;
     public boolean isGracePeriod;
     public boolean isAccountHold;
+    public boolean isPaused;
+    public Long autoResumeTimeMillis = 0L;
 
     /**
      * Parse subscription data from Map and return null if data is not valid.
@@ -102,7 +107,9 @@ public class SubscriptionStatus {
             subscriptionStatus.isFreeTrial = (boolean) subStatus.get(IS_FREE_TRIAL_KEY);
             subscriptionStatus.isGracePeriod = (boolean) subStatus.get(IS_GRACE_PERIOD_KEY);
             subscriptionStatus.isAccountHold = (boolean) subStatus.get(IS_ACCOUNT_HOLD_KEY);
-
+            subscriptionStatus.isPaused = (boolean) subStatus.get(IS_PAUSED_KEY);
+            subscriptionStatus.autoResumeTimeMillis =
+                    (Long) subStatus.get(AUTO_RESUME_TIME_MILLISEC_KEY);
             subscriptions.add(subscriptionStatus);
         }
 

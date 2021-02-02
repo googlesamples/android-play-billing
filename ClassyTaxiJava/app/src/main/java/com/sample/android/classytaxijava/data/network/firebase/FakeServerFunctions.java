@@ -219,24 +219,27 @@ public class FakeServerFunctions implements ServerFunctions {
                 subscription = createFakePremiumSubscription();
                 break;
             case 3:
-                subscription = createFakeAccountHoldSubscription();
+                subscription = createFakeAccountPausedSubscription();
                 break;
             case 4:
-                subscription = createFakeGracePeriodSubscription();
+                subscription = createFakeAccountHoldSubscription();
                 break;
             case 5:
-                subscription = createFakeAlreadyOwnedSubscription();
+                subscription = createFakeGracePeriodSubscription();
                 break;
             case 6:
-                subscription = createFakeCanceledBasicSubscription();
+                subscription = createFakeAlreadyOwnedSubscription();
                 break;
             case 7:
+                subscription = createFakeCanceledBasicSubscription();
+                break;
+            case 8:
                 subscription = createFakeCanceledPremiumSubscription();
                 break;
             default:
                 // Unknown fake index, just pick one.
                 subscription = null;
-
+                break;
         }
         // Iterate through fake data for testing purposes.
         fakeDataIndex = (fakeDataIndex + 1) % 8;
@@ -273,6 +276,18 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.willRenew = true;
         subscription.sku = Constants.PREMIUM_SKU;
         subscription.isAccountHold = true;
+        subscription.isGracePeriod = false;
+        subscription.purchaseToken = null;
+        subscription.subAlreadyOwned = false;
+        return subscription;
+    }
+
+    private SubscriptionStatus createFakeAccountPausedSubscription() {
+        SubscriptionStatus subscription = new SubscriptionStatus();
+        subscription.isEntitlementActive = false;
+        subscription.willRenew = true;
+        subscription.sku = Constants.PREMIUM_SKU;
+        subscription.isPaused = true;
         subscription.isGracePeriod = false;
         subscription.purchaseToken = null;
         subscription.subAlreadyOwned = false;

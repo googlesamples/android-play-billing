@@ -116,6 +116,7 @@ public class SubscriptionBindingAdapter {
         View gracePeriodMsg = view.findViewById(R.id.home_grace_period_message);
         View transferMsg = view.findViewById(R.id.home_transfer_message);
         View accountHoldMsg = view.findViewById(R.id.home_account_hold_message);
+        View accountPausedMsg = view.findViewById(R.id.home_account_paused_message);
         View basicMsg = view.findViewById(R.id.home_basic_message);
 
         // Set visibility assuming no subscription is available.
@@ -129,6 +130,7 @@ public class SubscriptionBindingAdapter {
         gracePeriodMsg.setVisibility(View.GONE);
         transferMsg.setVisibility(View.GONE);
         accountHoldMsg.setVisibility(View.GONE);
+        accountPausedMsg.setVisibility(View.GONE);
         basicMsg.setVisibility(View.GONE);
         // Update based on subscription information.
         if (subscriptions != null) {
@@ -159,6 +161,11 @@ public class SubscriptionBindingAdapter {
                     accountHoldMsg.setVisibility(View.VISIBLE);
                     paywallMsg.setVisibility(View.GONE); // Paywall gone.
                 }
+                if (BillingUtilities.isPaused(subscription)) {
+                    Log.d(TAG, "account paused VISIBLE");
+                    accountPausedMsg.setVisibility(View.VISIBLE);
+                    paywallMsg.setVisibility(View.GONE); // Paywall gone.
+                }
                 if (BillingUtilities.isBasicContent(subscription)
                         || BillingUtilities.isPremiumContent(subscription)) {
                     Log.d(TAG, "basic VISIBLE");
@@ -182,6 +189,7 @@ public class SubscriptionBindingAdapter {
         View gracePeriodMsg = view.findViewById(R.id.premium_grace_period_message);
         View transferMsg = view.findViewById(R.id.premium_transfer_message);
         View accountHoldMsg = view.findViewById(R.id.premium_account_hold_message);
+        View accountPausedMsg = view.findViewById(R.id.premium_account_paused_message);
         View premiumContent = view.findViewById(R.id.premium_premium_content);
         View upgradeMsg = view.findViewById(R.id.premium_upgrade_message);
 
@@ -195,6 +203,7 @@ public class SubscriptionBindingAdapter {
         gracePeriodMsg.setVisibility(View.GONE);
         transferMsg.setVisibility(View.GONE);
         accountHoldMsg.setVisibility(View.GONE);
+        accountPausedMsg.setVisibility(View.GONE);
         premiumContent.setVisibility(View.GONE);
         upgradeMsg.setVisibility(View.GONE);
 
@@ -229,7 +238,11 @@ public class SubscriptionBindingAdapter {
                     accountHoldMsg.setVisibility(View.VISIBLE);
                     paywallMsg.setVisibility(View.GONE); // Paywall gone.
                 }
-
+                if (BillingUtilities.isPaused(subscription)) {
+                    Log.d(TAG, "account paused VISIBLE");
+                    accountPausedMsg.setVisibility(View.VISIBLE);
+                    paywallMsg.setVisibility(View.GONE); // Paywall gone.
+                }
                 // The upgrade message must be shown if there is a basic subscription
                 // and there are zero premium subscriptions. We need to keep track of the premium
                 // subscriptions and hide the upgrade message if we find any.

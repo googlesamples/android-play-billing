@@ -33,7 +33,9 @@ public class SubscriptionUtilities {
         String text;
 
         if (BillingUtilities.isAccountHold(subscription)) {
-           text = res.getString(R.string.subscription_option_basic_message_account_hold);
+            text = res.getString(R.string.subscription_option_basic_message_account_hold);
+        } else if (BillingUtilities.isPaused(subscription)) {
+            text = res.getString(R.string.subscription_option_basic_message_account_paused);
         } else if (BillingUtilities.isGracePeriod(subscription)) {
             text = res.getString(R.string.subscription_option_basic_message_grace_period);
         } else if (BillingUtilities.isSubscriptionRestore(subscription)) {
@@ -61,6 +63,8 @@ public class SubscriptionUtilities {
         String text;
         if (BillingUtilities.isAccountHold(subscription)) {
             text = res.getString(R.string.subscription_option_premium_message_account_hold);
+        } else if (BillingUtilities.isPaused(subscription)) {
+            text = res.getString(R.string.subscription_option_premium_message_account_paused);
         } else if (BillingUtilities.isGracePeriod(subscription)) {
             text = res.getString(R.string.subscription_option_premium_message_grace_period);
         } else if (BillingUtilities.isSubscriptionRestore(subscription)) {

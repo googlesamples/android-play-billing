@@ -153,6 +153,16 @@ public class BillingUtilities {
     }
 
     /**
+     * Returns true if account pause should be shown.
+     */
+    public static boolean isPaused(SubscriptionStatus subscription) {
+        return subscription != null &&
+                !subscription.isEntitlementActive &&
+                subscription.isPaused &&
+                !subscription.subAlreadyOwned;
+    }
+
+    /**
      * Returns true if the subscription is already owned and requires a transfer to this account.
      */
     public static boolean isTransferRequired(SubscriptionStatus subscription) {
