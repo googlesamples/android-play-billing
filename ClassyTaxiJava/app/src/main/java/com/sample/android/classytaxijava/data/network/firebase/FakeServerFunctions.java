@@ -253,7 +253,7 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.sku = Constants.BASIC_SKU;
         subscription.isAccountHold = false;
         subscription.isGracePeriod = false;
-        subscription.purchaseToken = null;
+        subscription.purchaseToken = "FAKE_PURCHASE_TOKEN";
         subscription.subAlreadyOwned = false;
         return subscription;
     }
@@ -265,7 +265,7 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.sku = Constants.PREMIUM_SKU;
         subscription.isAccountHold = false;
         subscription.isGracePeriod = false;
-        subscription.purchaseToken = null;
+        subscription.purchaseToken = "FAKE_PURCHASE_TOKEN";
         subscription.subAlreadyOwned = false;
         return subscription;
     }
@@ -277,7 +277,7 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.sku = Constants.PREMIUM_SKU;
         subscription.isAccountHold = true;
         subscription.isGracePeriod = false;
-        subscription.purchaseToken = null;
+        subscription.purchaseToken = "FAKE_PURCHASE_TOKEN";
         subscription.subAlreadyOwned = false;
         return subscription;
     }
@@ -289,7 +289,7 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.sku = Constants.PREMIUM_SKU;
         subscription.isPaused = true;
         subscription.isGracePeriod = false;
-        subscription.purchaseToken = null;
+        subscription.purchaseToken = "FAKE_PURCHASE_TOKEN";
         subscription.subAlreadyOwned = false;
         return subscription;
     }
@@ -301,7 +301,7 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.sku = Constants.BASIC_SKU;
         subscription.isAccountHold = false;
         subscription.isGracePeriod = true;
-        subscription.purchaseToken = null;
+        subscription.purchaseToken = "FAKE_PURCHASE_TOKEN";
         subscription.subAlreadyOwned = false;
         return subscription;
     }
@@ -313,7 +313,7 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.sku = Constants.BASIC_SKU;
         subscription.isAccountHold = false;
         subscription.isGracePeriod = false;
-        subscription.purchaseToken = Constants.BASIC_SKU; // Fake data!!
+        subscription.purchaseToken = "FAKE_PURCHASE_TOKEN";
         subscription.subAlreadyOwned = true;
         return subscription;
     }
@@ -325,7 +325,7 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.sku = Constants.BASIC_SKU;
         subscription.isAccountHold = false;
         subscription.isGracePeriod = false;
-        subscription.purchaseToken = null;
+        subscription.purchaseToken = "FAKE_PURCHASE_TOKEN";
         subscription.subAlreadyOwned = false;
         return subscription;
     }
@@ -337,7 +337,7 @@ public class FakeServerFunctions implements ServerFunctions {
         subscription.sku = Constants.PREMIUM_SKU;
         subscription.isAccountHold = false;
         subscription.isGracePeriod = false;
-        subscription.purchaseToken = null;
+        subscription.purchaseToken = "FAKE_PURCHASE_TOKEN";
         subscription.subAlreadyOwned = false;
         return subscription;
     }

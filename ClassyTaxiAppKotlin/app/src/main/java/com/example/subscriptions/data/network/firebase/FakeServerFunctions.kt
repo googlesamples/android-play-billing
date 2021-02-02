@@ -160,15 +160,16 @@ class FakeServerFunctions : ServerFunctions {
             0 -> null
             1 -> createFakeBasicSubscription()
             2 -> createFakePremiumSubscription()
-            3 -> createFakeAccountHoldSubscription()
-            4 -> createFakeGracePeriodSubscription()
-            5 -> createFakeAlreadyOwnedSubscription()
-            6 -> createFakeCanceledBasicSubscription()
-            7 -> createFakeCanceledPremiumSubscription()
+            3 -> createFakeAccountPausedSubscription()
+            4 -> createFakeAccountHoldSubscription()
+            5 -> createFakeGracePeriodSubscription()
+            6 -> createFakeAlreadyOwnedSubscription()
+            7 -> createFakeCanceledBasicSubscription()
+            8 -> createFakeCanceledPremiumSubscription()
             else -> null // Unknown fake index, just pick one.
         }
         // Iterate through fake data for testing purposes.
-        fakeDataIndex = (fakeDataIndex + 1) % 8
+        fakeDataIndex = (fakeDataIndex + 1) % 9
         return subscription
     }
 
@@ -202,6 +203,18 @@ class FakeServerFunctions : ServerFunctions {
             willRenew = true
             sku = Constants.PREMIUM_SKU
             isAccountHold = true
+            isGracePeriod = false
+            purchaseToken = null
+            subAlreadyOwned = false
+        }
+    }
+
+    private fun createFakeAccountPausedSubscription(): SubscriptionStatus {
+        return SubscriptionStatus().apply {
+            isEntitlementActive = false
+            willRenew = true
+            sku = Constants.PREMIUM_SKU
+            isPaused = true
             isGracePeriod = false
             purchaseToken = null
             subAlreadyOwned = false
