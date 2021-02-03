@@ -96,7 +96,7 @@ public class BillingViewModel extends AndroidViewModel {
     }
 
     /**
-     * OpenOpen the subscription page on Google Play.
+     * Open the subscription page on Google Play.
      * <p>
      * Since the purchase tokens will not be returned during account hold or pause,
      * we use the server data to determine the deeplink to Google Play.
