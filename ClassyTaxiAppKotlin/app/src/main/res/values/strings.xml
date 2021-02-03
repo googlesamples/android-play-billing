@@ -44,7 +44,7 @@
     <string name="fix_button_text">Manage payment methods</string>
 
     <!-- Account paused -->
-    <string name="account_paused_message">Classy Taxi is taking a break. Payments for your subscription are paused and will automatically resume. You can resume your subscription at any time.</string>
+    <string name="account_paused_message">Classy Taxi is taking a break. Payments for your subscription are paused and will automatically resume on %1$s. You can resume your subscription at any time.</string>
     <string name="account_paused_button_text">Manage subscription</string>
 
     <!-- Active subscriptions -->

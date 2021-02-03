@@ -274,8 +274,7 @@ class TvMainFragment : DetailsSupportFragment() {
                 // Subscription restore
                 if (isSubscriptionRestore(subscription)) {
                     Log.d(TAG, "subscription restore")
-
-                    val expiryDate = getHumanReadableExpiryDate(subscription)
+                    val expiryDate = getHumanReadableDate(subscription.activeUntilMillisec)
                     val subtitleText = getString(R.string.restore_message_with_date, expiryDate)
                     subscriptionContentBuilder.subtitle(subtitleText)
                     subscriptionContentBuilder.description(null)

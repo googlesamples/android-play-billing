@@ -36,6 +36,7 @@ import com.example.subscriptions.utils.basicTextForSubscription
 import com.example.subscriptions.utils.premiumTextForSubscription
 import kotlinx.android.synthetic.main.fragment_home.view.home_account_hold_message
 import kotlinx.android.synthetic.main.fragment_home.view.home_account_paused_message
+import kotlinx.android.synthetic.main.fragment_home.view.home_account_paused_message_text
 import kotlinx.android.synthetic.main.fragment_home.view.home_basic_image
 import kotlinx.android.synthetic.main.fragment_home.view.home_basic_message
 import kotlinx.android.synthetic.main.fragment_home.view.home_basic_text
@@ -45,6 +46,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.home_restore_message
 import kotlinx.android.synthetic.main.fragment_home.view.home_transfer_message
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_account_hold_message
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_account_paused_message
+import kotlinx.android.synthetic.main.fragment_premium.view.premium_account_paused_message_text
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_grace_period_message
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_paywall_message
 import kotlinx.android.synthetic.main.fragment_premium.view.premium_premium_content
@@ -164,7 +166,7 @@ fun updateHomeViews(view: View, subscriptions: List<SubscriptionStatus>?) {
                 Log.d(TAG, "restore VISIBLE")
                 view.home_restore_message.run {
                     visibility = View.VISIBLE
-                    val expiryDate = getHumanReadableExpiryDate(subscription)
+                    val expiryDate = getHumanReadableDate(subscription.activeUntilMillisec)
                     text = view.resources.getString(R.string.restore_message_with_date, expiryDate)
                 }
                 view.home_paywall_message.visibility = View.GONE // Paywall gone.
@@ -186,6 +188,10 @@ fun updateHomeViews(view: View, subscriptions: List<SubscriptionStatus>?) {
             }
             if (isPaused(subscription)) {
                 Log.d(TAG, "account paused VISIBLE")
+                view.home_account_paused_message_text.run {
+                    val autoResumeDate = getHumanReadableDate(subscription.autoResumeTimeMillis)
+                    text = view.resources.getString(R.string.account_paused_message, autoResumeDate)
+                }
                 view.home_account_paused_message.visibility = View.VISIBLE
                 view.home_paywall_message.visibility = View.GONE // Paywall gone.
             }
@@ -231,7 +237,7 @@ fun updatePremiumViews(view: View, subscriptions: List<SubscriptionStatus>?) {
                 Log.d(TAG, "restore VISIBLE")
                 view.premium_restore_message.run {
                     visibility = View.VISIBLE
-                    val expiryDate = getHumanReadableExpiryDate(subscription)
+                    val expiryDate = getHumanReadableDate(subscription.activeUntilMillisec)
                     text = view.resources.getString(R.string.restore_message_with_date, expiryDate)
                 }
                 view.premium_paywall_message.visibility = View.GONE // Paywall gone.
@@ -253,6 +259,10 @@ fun updatePremiumViews(view: View, subscriptions: List<SubscriptionStatus>?) {
             }
             if (isPaused(subscription)) {
                 Log.d(TAG, "account paused VISIBLE")
+                view.premium_account_paused_message_text.run {
+                    val autoResumeDate = getHumanReadableDate(subscription.autoResumeTimeMillis)
+                    text = view.resources.getString(R.string.account_paused_message, autoResumeDate)
+                }
                 view.premium_account_paused_message.visibility = View.VISIBLE
                 view.premium_paywall_message.visibility = View.GONE // Paywall gone.
             }
@@ -345,17 +355,16 @@ fun updateSettingsViews(view: View, subscriptions: List<SubscriptionStatus>?) {
 }
 
 /**
- * Get a readable expiry date from a subscription.
+ * Get a readable date from the time in milliseconds.
  */
-fun getHumanReadableExpiryDate(subscription: SubscriptionStatus): String {
-    val milliSeconds = subscription.activeUntilMillisec
+fun getHumanReadableDate(milliSeconds: Long): String {
     val formatter = SimpleDateFormat.getDateInstance()
     val calendar = Calendar.getInstance()
     calendar.setTimeInMillis(milliSeconds)
     if (milliSeconds == 0L) {
-        Log.d(TAG, "Suspicious time: 0 milliseconds. JSON: ${subscription}")
+        Log.d(TAG, "Suspicious time: 0 milliseconds.")
     } else {
-        Log.d(TAG, "Expiry time millis: ${subscription.activeUntilMillisec}")
+        Log.d(TAG, "Milliseconds: ${milliSeconds}")
     }
     return formatter.format(calendar.getTime())
 }
