@@ -154,6 +154,7 @@ export class SubscriptionPurchaseImpl implements SubscriptionPurchase {
     // Play Developer API subscriptions:get returns some properties as string instead of number as documented. We do some type correction here to fix that
     if (purchase.startTimeMillis) purchase.startTimeMillis = Number(purchase.startTimeMillis);
     if (purchase.expiryTimeMillis) purchase.expiryTimeMillis = Number(purchase.expiryTimeMillis);
+    if (purchase.autoResumeTimeMillis) purchase.autoResumeTimeMillis = Number(purchase.autoResumeTimeMillis);
     if (purchase.priceAmountMicros) purchase.priceAmountMicros = Number(purchase.priceAmountMicros);
     if (purchase.userCancellationTimeMillis) purchase.userCancellationTimeMillis = Number(purchase.userCancellationTimeMillis);
 
