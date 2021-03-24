@@ -1,13 +1,13 @@
 {
-  "_comment": "Fake service file, replace with your own versiona",
+  "_comment": "TODO, replace this file with your own version",
   "project_info": {
-    "project_number": "",
-    "project_id": ""
+    "project_number": "TODO:Add your project number here",
+    "project_id": "TODO: add your project id"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1526371418:android:2871699",
+        "mobilesdk_app_id": "1:1234567890:android:321abc456def7890",
         "android_client_info": {
           "package_name": "com.example.subscriptions.classytaxi"
         }
@@ -28,7 +28,7 @@
       ],
       "api_key": [
         {
-          "current_key": ""
+          "current_key": "TODO: Add your key"
         }
       ],
       "services": {
